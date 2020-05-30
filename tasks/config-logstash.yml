@@ -1,0 +1,11 @@
+- name: Configure Logstash for Rails with Logstasher and AWS Elasticsearch
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - 01-rails-logs-input.conf
+    - 02-aws-elasticsearch-output.conf
+  notify: restart logstash
