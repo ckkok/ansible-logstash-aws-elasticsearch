@@ -1,4 +1,4 @@
-- name: Configure Logstash for Rails with Logstasher and AWS Elasticsearch
+- name: Configure Logstash to read application log output and send it to AWS Elasticsearch
   template:
     src: "{{ item }}.j2"
     dest: "/etc/logstash/conf.d/{{ item }}"
@@ -6,6 +6,6 @@
     group: root
     mode: 0644
   with_items:
-    - 01-rails-logs-input.conf
+    - 01-application-logs-input.conf
     - 02-aws-elasticsearch-output.conf
   notify: restart logstash

@@ -1,0 +1,5 @@
+all:
+  hosts:
+    localhost:
+      ansible_user: <<INSERT ANSIBLE USER HERE>>
+      ansible_ssh_private_key_file: <<INSERT PRIVATE KEY FILE PATH HERE>>

@@ -1,0 +1,5 @@
+- name: Ensure that {{ application_logs_location }} has read permissions for the logstash user
+  file:
+    path: "{{ application_logs_location }}"
+    state: touch
+    mode: o+r

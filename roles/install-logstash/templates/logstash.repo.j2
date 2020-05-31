@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 [logstash-{{ logstash_major_version }}]
-name=Elasticsearch repository for Logstash {{ logstash_major_version }}
+name=Elastic repository for {{ logstash_major_version }} packages
 baseurl=https://artifacts.elastic.co/packages/{{ logstash_major_version }}/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch

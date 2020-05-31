@@ -1,0 +1,47 @@
+- name: Ensure that JAVA_HOME is defined
+  assert:
+    that:
+      - "lookup('env', 'JAVA_HOME')"
+
+- name: Add Logstash GPG key
+  rpm_key:
+    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Logstash yum repository
+  template:
+    src: logstash.repo.j2
+    dest: /etc/yum.repos.d/logstash.repo
+    mode: 0644
+
+- name: Install Logstash
+  yum:
+    name: "logstash-{{ logstash_installed_version }}"
+    state: present
+
+- name: Install plugins
+  become: true
+  become_user: "{{ logstash_user }}"
+  command: >
+    ./bin/logstash-plugin install {{ item }}
+    chdir={{ logstash_dir }}
+  with_items: "{{ logstash_plugins_to_install }}"
+  notify: restart logstash
+
+- name: Run application configuration tasks
+  include: config-application-logs.yml
+
+- name: Run Logstash configuration tasks
+  include: config-logstash.yml
+
+- name: Re-initialize Logstash daemon
+  command: >
+    ./bin/system-install {{ logstash_config_dir }}/startup.options
+    chdir={{ logstash_dir }}
+
+- name: Start Logstash service
+  service:
+    name: logstash
+    state: restarted
+    enabled: yes
+  ignore_errors: false

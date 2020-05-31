@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+output {
+  amazon_es {
+    hosts => ["{{ aws_elasticsearch_endpoint }}"]
+    region => "{{ aws_region }}"
+    index => "{{ application_logs_index_prefix }}-%{+YYYY-MM-dd}"
+  }
+}

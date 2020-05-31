@@ -1,0 +1,14 @@
+logstash_major_version: 7.x
+logstash_installed_version: 7.4.0 # To match AWS Elasticsearch version
+logstash_user: logstash
+logstash_group: logstash
+logstash_dir: /usr/share/logstash
+logstash_config_dir: /etc/logstash
+logstash_plugins_to_install:
+  - logstash-output-amazon_es
+
+aws_elasticsearch_endpoint: <<INSERT AWS ELASTICSEARCH ENDPOINT HERE>>
+aws_region: <<INSERT AWS REGION HERE>>
+
+application_logs_index_prefix: application-logs
+application_logs_location: <<INSERT APPLICATION LOG FILE PATH HERE>>

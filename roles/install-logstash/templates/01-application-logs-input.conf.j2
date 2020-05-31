@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+input {
+  file {
+    type => "application logs"
+    path => "{{ application_logs_location }}"
+    codec => json {
+      charset => "UTF-8"
+    }
+  }
+}
